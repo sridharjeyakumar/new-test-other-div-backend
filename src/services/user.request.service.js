@@ -360,6 +360,7 @@ export const editRequest = async (
             optimizeTimeFrom,
             optimizeTimeTo,
             date,
+            optimizeStatus: true,
             // ...(mobileView && { isSanctioned: true }),
         },
     });
