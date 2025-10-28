@@ -248,8 +248,9 @@ export const createRequest = async (data, userId, divisionCode) => {
             "powerBlockDisconnectionAssignTo",
             "duration",
             "isSanctioned",
-            "enggDisconnectionsRequired",
+            "engDisconnectionRequired",
             "engDisconnectionRemarks",
+            "engDisconnectionAssignTo",
         ];
 
         // Filter out any fields not in allowedFields
