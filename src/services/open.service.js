@@ -146,6 +146,7 @@ export const fetchSanctionedRequests = async (startDate, endDate, CUG, availedRe
             TrdDisconnectionAvailedTimeFrom: true,
             TrdDisconnectionAvailedTimeTo: true,
             isGranted: true,
+            isApplied: true,
             sntDisconnectionRequirements: true,
             powerBlockRequirements: true,
             availedBy: {
@@ -292,6 +293,7 @@ export const fetchSanctionedRequests = async (startDate, endDate, CUG, availedRe
             sntDisconnectionRequirements: request.sntDisconnectionRequirements,
             powerBlockRequirements: request.powerBlockRequirements,
             isGranted: request.isGranted,
+            isApplied: request.isApplied,
             userId: request.userId,
             upDrDownOrSL: upOrDownOrSLValues.length > 0 ? upOrDownOrSLValues.join(", ") : undefined,
             roadNumber: roadNumberValues.length > 0 ? roadNumberValues.join(", ") : undefined,
@@ -416,6 +418,10 @@ export const updateSanctionedRequestAvailed = async (id, availed, additionalData
         updateData.isGranted = additionalData.isGranted;
     }
 
+    if (additionalData.isGranted === true) {
+        updateData.isApplied = additionalData.isApplied;
+    }
+
     const updatedRequest = await prisma.request.update({
         where: { divisionId: id },
         data: updateData,
@@ -434,6 +440,7 @@ export const updateSanctionedRequestAvailed = async (id, availed, additionalData
             TrdDisconnectionAvailedTimeFrom: true,
             TrdDisconnectionAvailedTimeTo: true,
             isGranted: true,
+            isApplied: true,
             availedBy: {
                 select: {
                     id: true,
