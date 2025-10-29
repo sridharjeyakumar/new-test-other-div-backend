@@ -23,6 +23,7 @@ export const calculateOverallStatus = (request, userDepartment = null) => {
         optimizeStatus,
         remarkByManager,
         disconnectionRequestRejectRemarks,
+        adminRequestStatus,
     } = request;
 
     // Final state: User has accepted the sanctioned request
@@ -2084,6 +2085,7 @@ export const acceptRequestByManager = async (
                 },
                 allSntAcceptance: true,
                 allTrdAcceptance: true,
+                adminRequestStatus: true,
             },
         });
 
@@ -2127,6 +2129,7 @@ export const acceptRequestByManager = async (
             optimizeStatus: request.optimizeStatus,
             remarkByManager: isAccept ? null : remark,
             disconnectionRequestRejectRemarks: null,
+            adminRequestStatus: request.adminRequestStatus,
         });
 
         // 4. Build update payload
@@ -2262,6 +2265,7 @@ export const acceptRequestByAdmin = async (
     adminId,
     mobileView,
     remarkByManager, // Changed parameter name to match your DB column
+    adminRequestStatus,
 ) => {
     const request = await prisma.request.findUnique({
         where: { id: requestId },
@@ -2288,6 +2292,7 @@ export const acceptRequestByAdmin = async (
     // Calculate overall status based on admin's decision
     const overAllStatus = calculateOverallStatus({
         ...request,
+        adminRequestStatus: adminRequestStatus,
         adminAcceptance: acceptance, // Admin's decision
         remarkByManager: acceptance
             ? request.remarkByManager
