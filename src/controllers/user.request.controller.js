@@ -329,7 +329,7 @@ export const getOtherRequests = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const startDate = req.query.startDate;
         const endDate = req.query.endDate;
-        const userDepartment = req.query.userDepartment;
+        const userDepartment = req.query.userDepartment || req.query.userDepartement;
 
         if (!req.user || !req.user.email) {
             return res.status(400).json({
@@ -411,7 +411,7 @@ export const updateOtherRequest = async (req, res) => {
         const { id } = requestValidation.requestIdSchema.parse(req.params);
         const { disconnectionRequestRejectRemarks, acceptRemarks } =
             requestValidation.updateOtherRequestSchema.parse(req.body);
-        const { userDepartment, depot, mobileView } = req.body;
+        const { userDepartment, depot, mobileView, userDepartement } = req.body;
         const acceptance = req.query.accept === "true";
         const location = req.user.location;
         const userId = req.user.id;
@@ -430,7 +430,7 @@ export const updateOtherRequest = async (req, res) => {
             id,
             acceptance,
             disconnectionRequestRejectRemarks,
-            userDepartment,
+            userDepartment || userDepartement,
             depot,
             mobileView,
             location,

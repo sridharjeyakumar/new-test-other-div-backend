@@ -24,6 +24,7 @@ export const calculateOverallStatus = (request, userDepartment = null) => {
         remarkByManager,
         disconnectionRequestRejectRemarks,
         adminRequestStatus,
+        remark,
     } = request;
 
     // Final state: User has accepted the sanctioned request
@@ -35,7 +36,6 @@ export const calculateOverallStatus = (request, userDepartment = null) => {
     if (isSanctioned && !userAcceptanceForSanction) {
         return "Sanctioned";
     }
-
     // Check for rejection scenarios
     if (remarkByManager && managerAcceptance === false) {
         return "return to applicant by Dept controller.";
@@ -278,7 +278,7 @@ export const createRequest = async (data, userId, divisionCode) => {
             "powerBlockDisconnectionAssignTo",
             "duration",
             "isSanctioned",
-            "engDisconnectionRequired",
+            "enggDisconnectionsRequired",
             "engDisconnectionRemarks",
             "engDisconnectionAssignTo",
         ];
@@ -2082,6 +2082,7 @@ export const acceptRequestByManager = async (
             select: {
                 id: true,
                 managerAcceptance: true,
+                enggDisconnectionsRequired: true,
                 adminAcceptance: true,
                 userAcceptanceForSanction: true,
                 corridorType: true,
@@ -2150,6 +2151,7 @@ export const acceptRequestByManager = async (
             allSntAcceptance: request.allSntAcceptance,
             allTrdAcceptance: request.allTrdAcceptance,
             sntDisconnectionRequired: request.sntDisconnectionRequired,
+            enggDisconnectionsRequired: request.enggDisconnectionsRequired,
             powerBlockRequired: request.powerBlockRequired,
             optimizeStatus: request.optimizeStatus,
             remarkByManager: isAccept ? null : remark,
@@ -3118,6 +3120,7 @@ export const userRequestRemarkReject = async (id, remark) => {
             optimizeStatus: true,
             remarkByManager: true,
             disconnectionRequestRejectRemarks: true,
+            userResponse: true,
         },
     });
     if (!request) {
@@ -3128,13 +3131,13 @@ export const userRequestRemarkReject = async (id, remark) => {
     const overAllStatus = calculateOverallStatus({
         ...request,
         userAcceptanceForSanction: false,
+        remark,
     });
 
     return await prisma.request.update({
         where: { id },
         data: {
             userAcceptanceForSanction: false,
-            isSanctioned: false,
             userResponse: remark,
             overAllStatus,
         },
