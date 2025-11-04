@@ -280,7 +280,7 @@ export const createRequest = async (data, userId, divisionCode) => {
             "isSanctioned",
             "enggDisconnectionsRequired",
             "engDisconnectionRemarks",
-            "engDisconnectionAssignTo",
+            "tpcRemarks",
         ];
 
         // Filter out any fields not in allowedFields
@@ -3170,6 +3170,7 @@ export const editUserRequest = async (requestId, data) => {
             date: new Date(data.date),
             demandTimeFrom: new Date(data.demandTimeFrom),
             demandTimeTo: new Date(data.demandTimeTo),
+            tpcRemarks: data.tpcRemarks || "",
         };
 
         // Validate that demandTimeTo is after demandTimeFrom
@@ -3192,6 +3193,7 @@ export const editUserRequest = async (requestId, data) => {
                 selectedDepartment: true,
                 selectedSection: true,
                 activity: true,
+                tpcRemarks: true,
             },
         });
 

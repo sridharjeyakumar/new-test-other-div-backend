@@ -71,6 +71,8 @@ export const createRequestSchema = z.object({
     enggDisconnectionsRequired: z.boolean().optional().default(false),
     engDisconnectionRemarks: z.string().optional(),
     engDisconnectionAssignTo: z.string().optional(),
+    engDisconnectionRemarks: z.string().optional(),
+    tpcRemarks: z.string().optional(),
 });
 
 export const updateRequestSchema = createRequestSchema.partial();
@@ -93,4 +95,5 @@ export const editUserRequestSchema = z.object({
     date: z.string().datetime().optional(),
     demandTimeFrom: z.string().datetime().optional(),
     demandTimeTo: z.string().datetime().optional(),
+    tpcRemarks: z.string().optional(),
 });
