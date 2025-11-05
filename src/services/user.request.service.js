@@ -584,6 +584,7 @@ export const editRequest = async (
     optimizeTimeTo,
     date,
     mobileView,
+    sanctionedRemark,
 ) => {
     const updatedRequest = await prisma.request.update({
         where: { id: requestId },
@@ -592,6 +593,7 @@ export const editRequest = async (
             optimizeTimeTo,
             date,
             optimizeStatus: true,
+            sanctionedRemarks: sanctionedRemark || null,
             // ...(mobileView && { isSanctioned: true }),
         },
     });
@@ -677,7 +679,25 @@ export const updateSanctionStatus = async (requests) => {
         throw new Error("Failed to update records in database");
     }
 };
+// services/requestService.js
+export const updateDraftStatus = async (requests) => {
+    try {
+        const updates = requests.map((request) => {
+            return prisma.request.update({
+                where: { id: request.id },
+                data: {
+                    Draft: true,
+                    sanctionedRemarks: request.sanctionedRemark || null,
+                },
+            });
+        });
 
+        return await prisma.$transaction(updates);
+    } catch (error) {
+        console.error("Database error in updateDraftStatus:", error);
+        throw new Error("Failed to update draft status in database");
+    }
+};
 export const deleteOptimizeDataRequest = async (requestId) => {
     try {
         return await prisma.request.delete({
