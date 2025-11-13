@@ -1707,6 +1707,7 @@ export const updateOtherRequest = async (
                 allEnggAcceptance: updatedAllEnggAcceptance,
                 sntDisconnectionRequired: request.sntDisconnectionRequired,
                 powerBlockRequired: request.powerBlockRequired,
+                enggDisconnectionsRequired: request.enggDisconnectionsRequired,
                 optimizeStatus: request.optimizeStatus,
                 remarkByManager: request.remarkByManager,
                 disconnectionRequestRejectRemarks: updatedDisconnectionRejectRemarks,

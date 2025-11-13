@@ -445,10 +445,11 @@ export const updateOtherRequest = async (req, res) => {
         const { id } = requestValidation.requestIdSchema.parse(req.params);
         const { disconnectionRequestRejectRemarks, acceptRemarks } =
             requestValidation.updateOtherRequestSchema.parse(req.body);
-        const { userDepartment, depot, mobileView, userDepartement } = req.body;
+        const { userDepartment, mobileView, userDepartement } = req.body;
         const acceptance = req.query.accept === "true";
         const location = req.user.location;
         const userId = req.user.id;
+        const depot = req.user.depot;
 
         // For rejection, remarks are required
         if (!acceptance && !disconnectionRequestRejectRemarks) {
