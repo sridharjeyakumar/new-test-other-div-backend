@@ -1905,6 +1905,7 @@ export const getManagerUsersRequests = async (
     endDate,
     status,
     departement,
+    location,
 ) => {
     try {
         if (page < 1) throw new Error("Page must be at least 1");
@@ -2041,6 +2042,11 @@ export const getManagerUsersRequests = async (
                     ...deptCondition,
                     ...dateFilter,
                     ...statusFilter,
+                    user: {
+                        is: {
+                            location: location,
+                        },
+                    },
                 },
                 include: {
                     user: {
