@@ -31,6 +31,7 @@ export const patchSanctionedRequestSchema = z.object({
     // Is granted flag
     isGranted: z.boolean().optional(),
     isApplied: z.boolean().optional(),
+    blockBurst: z.boolean().optional(),
     AppliedTimeFrom: z.string().optional(),
     AppliedTimeTo: z.string().optional(),
 });
