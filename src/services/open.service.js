@@ -151,6 +151,8 @@ export const fetchSanctionedRequests = async (startDate, endDate, CUG, availedRe
             isApplied: true,
             blockBurst: true,
             repercussions: true,
+            assetName: true,
+            assetNumber: true,
             sntDisconnectionRequirements: true,
             powerBlockRequirements: true,
             availedBy: {
@@ -312,6 +314,8 @@ export const fetchSanctionedRequests = async (startDate, endDate, CUG, availedRe
             overAllStatus: request.overAllStatus,
             blockBurst: request.blockBurst,
             repercussions: request.repercussions,
+            assetName: request.assetName,
+            assetNumber: request.assetNumber,
             user: request.user
                 ? {
                       applicantName: request.user.name,

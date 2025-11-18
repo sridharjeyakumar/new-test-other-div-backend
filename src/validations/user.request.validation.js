@@ -73,6 +73,8 @@ export const createRequestSchema = z.object({
     engDisconnectionAssignTo: z.string().optional(),
     engDisconnectionRemarks: z.string().optional(),
     tpcRemarks: z.string().optional(),
+    assetNumber: z.string().optional(),
+    assetName: z.string().optional(),
     freshCautions: z
         .array(
             z.object({
