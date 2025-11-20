@@ -26,11 +26,6 @@ export const generateReport = async (req, res) => {
         const globalActivityFilter = globalActivity || "ALL";
         const durationOperatorFilter = durationOperator || "ALL"; // CHANGED
         const durationValueFilter = durationValue || "";
-        // Convert date strings to Date objects
-        // const parsedStartDate = startDate ? new Date(startDate) : null;
-        // const parsedEndDate = endDate ? new Date(endDate) : null;
-        // console.log(parsedStartDate,"322",endDate,"++" ,parsedEndDate);
-        // Get the report data from the service
         const result = await generateHqReport(
             startDate,
             endDate,
